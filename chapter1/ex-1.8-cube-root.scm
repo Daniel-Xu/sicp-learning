@@ -1,5 +1,7 @@
 (define (cbrt x)
-  (cbrt-iter 1.0 x))
+  (if (< x 0)
+    (- (cbrt-iter 1.0 (- x)))
+    (cbrt-iter 1.0 x)))
 
 (define (improve guess x)
   (/ (+ (/ x (square guess))
@@ -13,4 +15,4 @@
 
 
 (define (good-enough? guess x)
-  (< (abs (- (* guess guess guess) x)) 0.001))
+  (< (abs (- (improve guess x) guess)) (* guess 0.001)))
