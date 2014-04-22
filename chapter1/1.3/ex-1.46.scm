@@ -1,8 +1,9 @@
 (define (iterative-improving good-enough? improve)
   (lambda (guess) 
-    (if (good-enough? guess (improve guess))
-        (improve guess)
-        ((iterative-improving good-enough? improve) (improve guess)))))
+    (let ((improved-guess (improve guess))) 
+      (if (good-enough? guess (improve guess))
+          improved-guess
+          ((iterative-improving good-enough? improve) improved-guess)))))
 
 
 (define (fix-point f first-guess)
